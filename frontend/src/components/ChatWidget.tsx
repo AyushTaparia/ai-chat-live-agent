@@ -452,7 +452,6 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask a question..."
-                disabled={isLoading}
                 rows={1}
                 className="flex-1 bg-transparent border-0 outline-none text-slate-100 text-xs resize-none placeholder-slate-500 max-h-24 min-h-[1.5rem]"
                 style={{ height: 'auto' }}

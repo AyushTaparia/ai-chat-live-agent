@@ -276,7 +276,7 @@ export default function ChatWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {/* Floating Chat Widget Window */}
       {isOpen && (
-        <div className="mb-4 w-[380px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[calc(100vh-8rem)] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-message-appear">
+        <div className="mb-4 w-[380px] max-w-[calc(100vw-2rem)] h-[540px] max-h-[calc(100vh-8rem)] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-message-appear relative">
           {/* Header */}
           <div className="p-4 bg-slate-950/80 border-b border-slate-800 backdrop-blur-md flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -318,38 +318,10 @@ export default function ChatWidget() {
             </div>
           </div>
 
-          {/* Messages Area */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-900/50 relative">
-            {/* Custom confirmation card replacing window.confirm popup */}
-            {showConfirmReset && (
-              <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-20 flex flex-col items-center justify-center p-6 text-center animate-message-appear">
-                <div className="w-12 h-12 rounded-2xl bg-rose-500/10 flex items-center justify-center text-rose-400 border border-rose-500/20 mb-3">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                </div>
-                <h4 className="text-slate-100 font-bold text-sm">Delete Chat History?</h4>
-                <p className="text-xs text-slate-400 mt-1 max-w-[220px] leading-relaxed">
-                  This will permanently delete this conversation log from the database.
-                </p>
-                <div className="mt-5 flex items-center gap-3 w-full max-w-[200px]">
-                  <button
-                    onClick={executeReset}
-                    type="button"
-                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold tracking-wide shadow-md shadow-rose-600/10 transition-all active:scale-[0.98]"
-                  >
-                    Delete
-                  </button>
-                  <button
-                    onClick={() => setShowConfirmReset(false)}
-                    type="button"
-                    className="flex-1 py-2 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl text-xs font-semibold tracking-wide border border-slate-700 transition-all active:scale-[0.98]"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
+          {/* Messages Area Wrapper */}
+          <div className="flex-1 relative overflow-hidden">
+            {/* Scrollable Messages Area */}
+            <div className="absolute inset-0 p-4 overflow-y-auto space-y-4 bg-slate-900/50">
 
             {messages.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-3">
@@ -416,6 +388,38 @@ export default function ChatWidget() {
             
             <div ref={messagesEndRef} />
           </div>
+
+          {/* Custom confirmation card replacing window.confirm popup */}
+          {showConfirmReset && (
+            <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-20 flex flex-col items-center justify-center p-6 text-center animate-message-appear">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 flex items-center justify-center text-rose-400 border border-rose-500/20 mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              <h4 className="text-slate-100 font-bold text-sm">Delete Chat History?</h4>
+              <p className="text-xs text-slate-400 mt-1 max-w-[220px] leading-relaxed">
+                This will permanently delete this conversation log from the database.
+              </p>
+              <div className="mt-5 flex items-center gap-3 w-full max-w-[200px]">
+                <button
+                  onClick={executeReset}
+                  type="button"
+                  className="flex-1 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold tracking-wide shadow-md shadow-rose-600/10 transition-all active:scale-[0.98]"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => setShowConfirmReset(false)}
+                  type="button"
+                  className="flex-1 py-2 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl text-xs font-semibold tracking-wide border border-slate-700 transition-all active:scale-[0.98]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
           {/* Error & Warning Displays */}
           {error && (

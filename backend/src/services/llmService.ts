@@ -241,10 +241,6 @@ function callLocalMockFallback(userMessage: string): string {
   }
 
   return (
-    "Thank you for contacting Spur Goods! (Note: Running in local policy backup mode due to LLM quota constraints).\n\n" +
-    "How can I help you today? I can answer questions regarding:\n\n" +
-    "*   **Shipping rates** (US/International, free over $50)\n" +
-    "*   **Return policies** (30-day window, free US returns)\n" +
-    "*   **Support hours** (Mon-Fri 9AM-6PM EST, support@spurgoods.com)"
+    "Thank you for contacting Spur Goods! Our AI assistant is currently busy. Please try again after some time, or contact us at support@spurgoods.com."
   );
 }

@@ -6,6 +6,9 @@ import prisma from './db/client';
 
 const app = express();
 
+// Trust Render's proxy to get the correct client IP for rate limiting
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
